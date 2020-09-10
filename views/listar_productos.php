@@ -14,7 +14,7 @@
             <?= $mensaje;?>
         </div>
     <?php } ?>
-    <a href="?controller=personas&action=CrearPersona">
+    <a href="?controller=producto&action=CrearProducto">
         <button class="btn btn-primary">Crear Nuevo</button>
     </a>
     <br>
@@ -33,20 +33,28 @@
                     <th scope="col">Stock</th>
                     <th scope="col">Fecha Creación</th>
                     <th scope="col">Fecha última venta</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                    </tr>
+                    <?php if ($productos) { ?>
+                        <?php while ($producto = $productos->fetch_object()) { ?>
+                            <tr>
+                                <th scope="row"><?= $producto->id ?></th>
+                                <td><?= $producto->nombre_producto ?></td>
+                                <td><?= $producto->referencia ?></td>
+                                <td><?= $producto->precio ?></td>
+                                <td><?= $producto->peso ?></td>
+                                <td><?= $producto->categoria ?></td>
+                                <td><?= $producto->stock ?></td>
+                                <td><?= $producto->fecha_creacion ?></td>
+                                <td><?= $producto->fecha_ultima_venta ?></td>
+                                <td><a href="?controller=producto&action=EditarProducto&id=<?= $producto->id;?>">Editar</a> </td>
+                                <td><a href="?controller=producto&action=BorrarProducto&id=<?= $producto->id;?>">Borrar</a> </td>
+                            </tr>        
+                        <?php } ?>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>

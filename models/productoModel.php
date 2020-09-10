@@ -105,4 +105,105 @@ class productoModel extends baseModel
 
         return $result;
     }
+
+    public function GuardarProducto()
+    {
+        $result = true;
+
+        $sql = "
+            INSERT INTO
+                productos
+            (
+                nombre_producto,
+                referencia,
+                precio,
+                peso, 
+                categoria,
+                stock,
+                fecha_creacion
+            )VALUES(
+                '{$this->nombreProducto}',
+                '{$this->referencia}',
+                '{$this->precio}',
+                '{$this->peso}',
+                '{$this->categoria}',
+                '{$this->stock}',
+                '{$this->fechaCreacion}'
+            )
+        ";
+
+        $save = $this->db->query($sql);
+
+        if(!$save){
+            $result = "No se pudo ingresar el registro en la BD";
+        }
+
+
+        return $result;
+    }
+
+    public function ConsultarProducto(int $id)
+    {
+        $result = true;
+
+        $sql= "
+            SELECT
+                *
+            FROM
+                productos
+            WHERE
+                id = {$id}
+        ";
+
+        $producto = $this->db->query($sql);
+
+        if($producto && $producto->num_rows == 1){
+
+            while($pro = $producto->fetch_object()){
+
+                $this->nombreProducto = $pro->nombre_producto;
+                $this->referencia = $pro->referencia;
+                $this->precio = $pro->precio;
+                $this->peso = $pro->peso;
+                $this->categoria = $pro->categoria;
+                $this->stock = $pro->stock;
+
+                $result = true;
+            }
+            
+        }else{
+
+            $result = false;
+        }
+
+        return $result;
+    }
+
+    public function ActualizarProducto(int $id)
+    {
+        $result = true;
+
+        $sql = "
+            UPDATE
+                productos
+            SET
+                nombre_producto = '{$this->nombreProducto}',
+                referencia = '{$this->referencia}',
+                precio = {$this->precio},
+                peso = {$this->peso},  
+                categoria = '{$this->categoria}',
+                stock =  {$this->stock}
+            WHERE   
+                id = {$id} 
+        ";
+
+        
+        $save = $this->db->query($sql);
+        
+        if(!$save){
+            $result = "No se pudo actualizar el registro en la BD";
+        }
+
+        return $result;
+    }
 }
