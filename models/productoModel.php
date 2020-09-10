@@ -82,4 +82,27 @@ class productoModel extends baseModel
     {
         return $this->fechaCreacion;
     }
+
+    public function getAll()
+    {
+        $result = true;
+
+        $sql = "
+            SELECT
+                *
+            FROM 
+                productos
+        ";
+
+        $productos = $this->db->query($sql);
+
+        if ($productos && $productos->num_rows >= 1) 
+        {
+            $result = $productos;
+        }else {
+            $result = false;
+        }
+
+        return $result;
+    }
 }
