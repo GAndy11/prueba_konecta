@@ -25,6 +25,7 @@
                 <thead>
                     <tr>
                     <th scope="col">Id</th>
+                    <th scope="col"></th>
                     <th scope="col">Nombre de Producto</th>
                     <th scope="col">Referencia</th>
                     <th scope="col">Precio</th>
@@ -42,6 +43,7 @@
                         <?php while ($producto = $productos->fetch_object()) { ?>
                             <tr>
                                 <th scope="row"><?= $producto->id ?></th>
+                                <td><a href="?controller=producto&action=VenderProducto&id=<?= $producto->id;?>">Vender</a> </td>
                                 <td><?= $producto->nombre_producto ?></td>
                                 <td><?= $producto->referencia ?></td>
                                 <td><?= $producto->precio ?></td>

@@ -228,4 +228,37 @@ class productoModel extends baseModel
 
         return $result;
     }
+
+    public function Vender(int $id)
+    {
+        $result = true;
+
+        $producto = $this->ConsultarProducto($id);
+        
+        if ($producto && $this->stock > 0) {
+
+            $stock = $this->stock -1;
+            $sql = "
+                UPDATE
+                    productos
+                SET
+                    stock = {$stock},
+                    fecha_ultima_venta = now()
+                WHERE   
+                    id = {$id} 
+            ";
+
+            
+            $save = $this->db->query($sql);
+            
+            if(!$save){
+                $result = "No se pudo actualizar el registro en la BD";
+            }      
+        }else{
+            $result = false;
+        }
+        
+        return $result;
+
+    }
 }

@@ -150,13 +150,33 @@ class productoController
     {
         $mensaje = "";
 
-        $persona = new productoModel;
-        $resultado = $persona->BorrarProducto($_GET['id']);
+        $producto = new productoModel;
+        $resultado = $producto->BorrarProducto($_GET['id']);
 
         if(!$resultado){
             $mensaje = "No se pudo eliminar el registro en la BD";
+        }else{
+            $mensaje = "Producto eliminado";
         }
 
         $this->index($mensaje);
+    }
+
+    public function VenderProducto()
+    {
+        $mensaje = "";
+
+        $producto = new productoModel;
+        $resultado = $producto->Vender($_GET['id']);
+
+        if(!$resultado){
+            $mensaje = "Producto no tiene stock suficiente";
+        }else{
+            $mensaje = "Producto vendido correctamente";
+        }
+        
+        $this->index($mensaje);
+        
+
     }
 }
