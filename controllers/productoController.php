@@ -146,5 +146,17 @@ class productoController
         $this->index($mensaje);
     }
 
-    
+    public function BorrarProducto()
+    {
+        $mensaje = "";
+
+        $persona = new productoModel;
+        $resultado = $persona->BorrarProducto($_GET['id']);
+
+        if(!$resultado){
+            $mensaje = "No se pudo eliminar el registro en la BD";
+        }
+
+        $this->index($mensaje);
+    }
 }

@@ -206,4 +206,26 @@ class productoModel extends baseModel
 
         return $result;
     }
+
+    public function BorrarProducto(int $id)
+    {
+        $result = true;
+
+        $sql = "
+            DELETE FROM
+                productos
+            WHERE   
+                id = {$id} 
+        ";
+
+        
+        $delete = $this->db->query($sql);
+        
+        
+        if(!$delete){
+            $result = false;
+        }
+
+        return $result;
+    }
 }
